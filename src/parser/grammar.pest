@@ -1,0 +1,19 @@
+program = _{ SOI ~ stmt+ ~ EOI }
+
+stmt = _{ expr ~ ";;"? }
+
+expr = _{ decl | integer | bool | pattern }
+
+bool = { "true" | "false" }
+
+unit = { "()" }
+
+integer = { ASCII_DIGIT+ }
+
+ident = @{ (ASCII_ALPHA | "_") ~ (ASCII_ALPHANUMERIC | "_")* }
+
+pattern = _{ ident }
+
+decl = { "let" ~ pattern ~ "=" ~ expr ~ ("in" ~ expr)? }
+
+WHITESPACE = _{ " " | NEWLINE }
